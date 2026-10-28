@@ -82,7 +82,7 @@ def build():
             return tag
         tag = tag.replace("<button ", '<a href="' + html.escape(url, quote=True) + '" ', 1)
         tag = tag.replace(' type="button"', "").replace(" disabled", "")
-        tag = tag.replace("，即将开放", "").replace("<span>即将开放</span>", "<span>下载 ↗</span>")
+        tag = tag.replace("，即将开放", "").replace("<span>即将开放</span>", '<span aria-hidden="true">↗</span>')
         return tag.replace("</button>", "</a>")
 
     source = re.sub(r'<button\b[^>]*data-download-source="[^"]+"[^>]*>.*?</button>', download_link, source, flags=re.S)
