@@ -11,10 +11,33 @@ from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "dist"
+DOWNLOAD_ARCHITECTURES = {"windows": {"x64", "arm64"}, "macos": {"arm64", "x86_64"}}
+
+
+def validate_downloads(downloads):
+    if not isinstance(downloads, dict) or set(downloads) != set(DOWNLOAD_ARCHITECTURES):
+        raise ValueError("Downloads require Windows and macOS architecture groups")
+    for platform, architectures in DOWNLOAD_ARCHITECTURES.items():
+        groups = downloads[platform]
+        if not isinstance(groups, dict) or set(groups) != architectures:
+            raise ValueError(f"Wrong download architecture set: {platform}")
+        for architecture, providers in groups.items():
+            if not isinstance(providers, dict) or set(providers) != {"r2", "github"}:
+                raise ValueError(f"Downloads require R2 and GitHub entries: {platform}/{architecture}")
+            for provider, url in providers.items():
+                if url is None:
+                    continue
+                if not isinstance(url, str):
+                    raise ValueError("Download URL must be HTTPS or null")
+                parsed = urlsplit(url)
+                if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
+                    raise ValueError(f"Download URL must be HTTPS without credentials: {platform}/{architecture}/{provider}")
 
 
 def build():
     source = (ROOT / "index.html").read_text(encoding="utf-8")
+    downloads = json.loads((ROOT / "downloads.json").read_text(encoding="utf-8"))
+    validate_downloads(downloads)
     if OUT.exists():
         shutil.rmtree(OUT)
     (OUT / "assets").mkdir(parents=True)
@@ -46,18 +69,17 @@ def build():
         return tag if re.search(r"\bsrc=", tag) else tag.replace("<img ", f'<img src="{urls[name]}" ', 1)
 
     source = re.sub(r'<img\b[^>]*\bdata-image="([^"]+)"[^>]*>', image_src, source)
-    downloads = json.loads((ROOT / "downloads.json").read_text(encoding="utf-8"))
-
     def download_link(match):
         tag = match[0]
         platform = re.search(r'data-platform="([^"]+)"', tag)[1]
+        architecture_match = re.search(r'data-architecture="([^"]+)"', tag)
+        if not architecture_match:
+            raise ValueError(f"Download control is missing its architecture: {platform}")
+        architecture = architecture_match[1]
         provider = re.search(r'data-download-source="([^"]+)"', tag)[1]
-        url = downloads[platform][provider]
-        if not url:
+        url = downloads[platform][architecture][provider]
+        if url is None:
             return tag
-        parsed = urlsplit(url)
-        if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
-            raise ValueError(f"Download URL must be HTTPS without credentials: {platform}/{provider}")
         tag = tag.replace("<button ", '<a href="' + html.escape(url, quote=True) + '" ', 1)
         tag = tag.replace(' type="button"', "").replace(" disabled", "")
         tag = tag.replace("，即将开放", "").replace("<span>即将开放</span>", "<span>下载 ↗</span>")

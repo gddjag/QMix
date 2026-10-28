@@ -1,10 +1,22 @@
 {
   "windows": {
-    "github": null,
-    "r2": null
+    "x64": {
+      "github": null,
+      "r2": null
+    },
+    "arm64": {
+      "github": null,
+      "r2": null
+    }
   },
   "macos": {
-    "github": null,
-    "r2": null
+    "arm64": {
+      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.0/QMix-macOS-arm64-1.0.0.pkg",
+      "r2": null
+    },
+    "x86_64": {
+      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.0/QMix-macOS-x86_64-1.0.0.pkg",
+      "r2": null
+    }
   }
 }
