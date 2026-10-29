@@ -11,12 +11,12 @@
   },
   "macos": {
     "arm64": {
-      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.1/QMix-macOS-arm64-1.0.1.pkg",
-      "r2": "https://downloads.qmix.top/QMix-macOS-arm64-1.0.1.pkg"
+      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.2/QMix-macOS-arm64-1.0.2.pkg",
+      "r2": "https://downloads.qmix.top/QMix-macOS-arm64-1.0.2.pkg"
     },
     "x86_64": {
-      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.1/QMix-macOS-x86_64-1.0.1.pkg",
-      "r2": "https://downloads.qmix.top/QMix-macOS-x86_64-1.0.1.pkg"
+      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.2/QMix-macOS-x86_64-1.0.2.pkg",
+      "r2": "https://downloads.qmix.top/QMix-macOS-x86_64-1.0.2.pkg"
     }
   }
 }
