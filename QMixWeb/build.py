@@ -41,7 +41,7 @@ def build():
     macos_release = downloads.get("release", {}).get("macos", {})
     if macos_release:
         version = macos_release.get("version")
-        if not isinstance(version, str) or not re.fullmatch(r"\\d+\\.\\d+\\.\\d+", version):
+        if not isinstance(version, str) or not re.fullmatch(r"\d+\.\d+\.\d+", version):
             raise ValueError("macOS release metadata requires a semantic version")
         source = source.replace("版本 1.0.2", f"版本 {version}", 1)
         source = source.replace("1.0.2 · PKG", f"{version} · PKG")
@@ -50,7 +50,7 @@ def build():
             if not isinstance(checksum, str) or not re.fullmatch(r"[a-f0-9]{64}", checksum):
                 raise ValueError(f"macOS {architecture} release metadata requires a SHA-256 checksum")
             pattern = rf'({re.escape(label)}· )[^<]+(<br><code id="checksum-macos-{architecture}">)[a-f0-9]{{64}}(</code>)'
-            source, replacements = re.subn(pattern, rf"\\g<1>{version} · PKG\\g<2>{checksum}\\g<3>", source, count=1)
+            source, replacements = re.subn(pattern, rf"\g<1>{version} · PKG\g<2>{checksum}\g<3>", source, count=1)
             if replacements != 1:
                 raise ValueError(f"Could not update the {architecture} macOS release checksum")
     if OUT.exists():
