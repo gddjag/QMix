@@ -18,5 +18,16 @@
       "github": "https://github.com/gddjag/QMix/releases/download/v1.0.3/QMix-macOS-x86_64-1.0.3.pkg",
       "r2": "https://downloads.qmix.top/QMix-macOS-x86_64-1.0.3.pkg"
     }
+  },
+  "release": {
+    "macos": {
+      "version": "1.0.3",
+      "arm64": {
+        "sha256": "cdcd004e872b4099c23e2dde474842db6117034c222253295bd01fd60cf52467"
+      },
+      "x86_64": {
+        "sha256": "e5519611360bfefc04fc6d06e472c24b990880c59738f5efa12e02ef4159d077"
+      }
+    }
   }
 }
