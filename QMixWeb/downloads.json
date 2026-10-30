@@ -2,11 +2,11 @@
   "windows": {
     "x64": {
       "github": null,
-      "r2": null
+      "r2": "https://downloads.qmix.top/QMix-Setup-1.0.3-win-x64.exe"
     },
     "arm64": {
       "github": null,
-      "r2": null
+      "r2": "https://downloads.qmix.top/QMix-Setup-1.0.3-win-arm64.exe"
     }
   },
   "macos": {
@@ -27,6 +27,15 @@
       },
       "x86_64": {
         "sha256": "e5519611360bfefc04fc6d06e472c24b990880c59738f5efa12e02ef4159d077"
+      }
+    },
+    "windows": {
+      "version": "1.0.3",
+      "x64": {
+        "sha256": "04a3e69e58dd9d866bd5e653ca45d6895d23c6cbd42fc9766f06f2211c55f602"
+      },
+      "arm64": {
+        "sha256": "e7382fda1a3607dd140d20765f3fb325c17d5e3df9003d5791e59eb97d70a690"
       }
     }
   }
