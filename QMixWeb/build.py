@@ -15,7 +15,7 @@ DOWNLOAD_ARCHITECTURES = {"windows": {"x64", "arm64"}, "macos": {"arm64", "x86_6
 
 
 def validate_downloads(downloads):
-    if not isinstance(downloads, dict) or set(downloads) != set(DOWNLOAD_ARCHITECTURES):
+    if not isinstance(downloads, dict) or set(downloads) - {"release"} != set(DOWNLOAD_ARCHITECTURES):
         raise ValueError("Downloads require Windows and macOS architecture groups")
     for platform, architectures in DOWNLOAD_ARCHITECTURES.items():
         groups = downloads[platform]
@@ -38,6 +38,21 @@ def build():
     source = (ROOT / "index.html").read_text(encoding="utf-8")
     downloads = json.loads((ROOT / "downloads.json").read_text(encoding="utf-8"))
     validate_downloads(downloads)
+    macos_release = downloads.get("release", {}).get("macos", {})
+    if macos_release:
+        version = macos_release.get("version")
+        if not isinstance(version, str) or not re.fullmatch(r"\\d+\\.\\d+\\.\\d+", version):
+            raise ValueError("macOS release metadata requires a semantic version")
+        source = source.replace("版本 1.0.2", f"版本 {version}", 1)
+        source = source.replace("1.0.2 · PKG", f"{version} · PKG")
+        for architecture, label in (("arm64", "Apple M（arm64）"), ("x86_64", "Intel（x86_64）")):
+            checksum = macos_release.get(architecture, {}).get("sha256")
+            if not isinstance(checksum, str) or not re.fullmatch(r"[a-f0-9]{64}", checksum):
+                raise ValueError(f"macOS {architecture} release metadata requires a SHA-256 checksum")
+            pattern = rf'({re.escape(label)}· )[^<]+(<br><code id="checksum-macos-{architecture}">)[a-f0-9]{{64}}(</code>)'
+            source, replacements = re.subn(pattern, rf"\\g<1>{version} · PKG\\g<2>{checksum}\\g<3>", source, count=1)
+            if replacements != 1:
+                raise ValueError(f"Could not update the {architecture} macOS release checksum")
     if OUT.exists():
         shutil.rmtree(OUT)
     (OUT / "assets").mkdir(parents=True)
