@@ -32,6 +32,15 @@ def validate_downloads(downloads):
                 parsed = urlsplit(url)
                 if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
                     raise ValueError(f"Download URL must be HTTPS without credentials: {platform}/{architecture}/{provider}")
+    windows_release = downloads.get("release", {}).get("windows", {})
+    if windows_release:
+        version = windows_release.get("version")
+        if not isinstance(version, str) or not re.fullmatch(r"\d+\.\d+\.\d+", version):
+            raise ValueError("Windows release metadata requires a semantic version")
+        for architecture in DOWNLOAD_ARCHITECTURES["windows"]:
+            checksum = windows_release.get(architecture, {}).get("sha256")
+            if not isinstance(checksum, str) or not re.fullmatch(r"[a-f0-9]{64}", checksum):
+                raise ValueError(f"Windows {architecture} release metadata requires a SHA-256 checksum")
 
 
 def build():
@@ -53,6 +62,44 @@ def build():
             source, replacements = re.subn(pattern, rf"\g<1>{version} · PKG\g<2>{checksum}\g<3>", source, count=1)
             if replacements != 1:
                 raise ValueError(f"Could not update the {architecture} macOS release checksum")
+    windows_release = downloads.get("release", {}).get("windows", {})
+    if windows_release:
+        version = windows_release["version"]
+        source = source.replace("安装包准备中", f"版本 {version}", 1)
+        specs = (
+            '<dd>Windows 10 / 11</dd></div><div><dt>适用设备</dt><dd>Windows 电脑</dd></div></dl>'
+            '<!-- 后续替换为 Windows 安装包的真实下载链接。 -->'
+        )
+        release_specs = (
+            f'<dd>Windows 10 2004+ / 11</dd></div><div><dt>适用设备</dt><dd>Windows x64 / ARM64</dd></div>'
+            f'<div><dt>版本 / 格式</dt><dd>{version} · EXE 安装包</dd></div></dl>'
+        )
+        source, replacements = source.replace(specs, release_specs, 1), source.count(specs)
+        if replacements != 1:
+            raise ValueError("Could not update Windows release specifications")
+        note = '<p class="download-note" id="windows-download-note">Windows 10 2004+ / 11；x64 与 ARM64 分开提供，请按处理器架构选择。</p>'
+        source, replacements = re.subn(
+            r'<p class="download-note" id="windows-download-note">.*?</p>', note, source, count=1, flags=re.S
+        )
+        if replacements != 1:
+            raise ValueError("Could not update the Windows release note")
+        checksum_markup = (
+            '<div class="download-checksum"><strong>SHA-256 校验值</strong>'
+            f'<p>x64 · {version} · EXE<br><code id="checksum-windows-x64">{windows_release["x64"]["sha256"]}</code></p>'
+            f'<p>ARM64 · {version} · EXE<br><code id="checksum-windows-arm64">{windows_release["arm64"]["sha256"]}</code></p>'
+            '<a href="#download-verification" onclick="document.getElementById(\'download-verification\').open=true">'
+            '如何核对校验值 ↗</a></div>'
+        )
+        source, replacements = re.subn(
+            r'<div class="download-checksum"><strong>SHA-256 校验值</strong>.*?</a></div>',
+            checksum_markup,
+            source,
+            count=1,
+            flags=re.S,
+        )
+        if replacements != 1:
+            raise ValueError("Could not update Windows release checksums")
+        source = source.replace("Windows 校验值将在发布时提供。", "Windows 校验值见上方对应架构。", 1)
     if OUT.exists():
         shutil.rmtree(OUT)
     (OUT / "assets").mkdir(parents=True)
