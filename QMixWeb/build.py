@@ -100,6 +100,13 @@ def build():
         if replacements != 1:
             raise ValueError("Could not update Windows release checksums")
         source = source.replace("Windows 校验值将在发布时提供。", "Windows 校验值见上方对应架构。", 1)
+        macos_version = macos_release.get("version")
+        faq_release_note = f"当前正式版 {version} 已提供 Windows x64 / ARM64 与 macOS Intel / Apple M 系列的独立安装包，可在下方下载区域选择对应系统与架构。"
+        source = source.replace(
+            "macOS 1.0.0 提供两种芯片的独立安装包；Windows 安装包正在准备中。",
+            faq_release_note,
+            1,
+        )
     if OUT.exists():
         shutil.rmtree(OUT)
     (OUT / "assets").mkdir(parents=True)
