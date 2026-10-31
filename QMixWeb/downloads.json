@@ -1,11 +1,11 @@
 {
   "windows": {
     "x64": {
-      "github": null,
+      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.3/QMix-Setup-1.0.3-win-x64.exe",
       "r2": "https://downloads.qmix.top/QMix-Setup-1.0.3-win-x64.exe"
     },
     "arm64": {
-      "github": null,
+      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.3/QMix-Setup-1.0.3-win-arm64.exe",
       "r2": "https://downloads.qmix.top/QMix-Setup-1.0.3-win-arm64.exe"
     }
   },
