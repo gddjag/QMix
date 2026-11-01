@@ -41,6 +41,12 @@ def validate_downloads(downloads):
             checksum = windows_release.get(architecture, {}).get("sha256")
             if not isinstance(checksum, str) or not re.fullmatch(r"[a-f0-9]{64}", checksum):
                 raise ValueError(f"Windows {architecture} release metadata requires a SHA-256 checksum")
+        if windows_release.get("available") is False and any(
+            downloads["windows"][architecture][provider]
+            for architecture in DOWNLOAD_ARCHITECTURES["windows"]
+            for provider in ("r2", "github")
+        ):
+            raise ValueError("Delisted Windows releases must not expose public download URLs")
 
 
 def build():
@@ -107,6 +113,39 @@ def build():
             faq_release_note,
             1,
         )
+        if windows_release.get("available") is False:
+            source, removed = re.subn(
+                r'<article class="download-card" aria-labelledby="download-windows-title">.*?</article>',
+                "",
+                source,
+                count=1,
+                flags=re.S,
+            )
+            if removed != 1:
+                raise ValueError("Could not remove the delisted Windows download card")
+            source = source.replace(
+                'class="download-grid reveal"',
+                'class="download-grid reveal macos-only"',
+                1,
+            )
+            source = source.replace(
+                "</head>",
+                '<style>.download-grid.macos-only{grid-template-columns:minmax(0,1fr);max-width:780px;margin-inline:auto}</style></head>',
+                1,
+            )
+            paused_faq = "Windows 版本暂时下架，官网当前仅提供 macOS 安装包。"
+            source, faq_replacements = re.subn(
+                r"当前正式版 \d+\.\d+\.\d+ 已提供 Windows x64 / ARM64 与 macOS Intel / Apple M 系列的独立安装包，可在下方下载区域选择对应系统与架构。",
+                paused_faq,
+                source,
+                count=1,
+            )
+            if faq_replacements != 1:
+                source = source.replace(
+                    "macOS 1.0.0 提供两种芯片的独立安装包；Windows 安装包正在准备中。",
+                    paused_faq,
+                    1,
+                )
     if OUT.exists():
         shutil.rmtree(OUT)
     (OUT / "assets").mkdir(parents=True)
