@@ -114,7 +114,7 @@ def build():
             1,
         )
         if windows_release.get("available") is False:
-            paused_faq = "Windows 版本暂时下架，官网当前仅提供 macOS 安装包。"
+            paused_faq = f"Windows 版本暂时下架，官网当前提供 macOS {macos_version} 的 Intel / Apple M 系列独立安装包。"
             source, faq_replacements = re.subn(
                 r"当前正式版 \d+\.\d+\.\d+ 已提供 Windows x64 / ARM64 与 macOS Intel / Apple M 系列的独立安装包，可在下方下载区域选择对应系统与架构。",
                 paused_faq,
@@ -127,6 +127,11 @@ def build():
                     paused_faq,
                     1,
                 )
+    source = source.replace(
+        "应用采集复制原应用声音，原播放仍会继续。如果原应用已在耳机中播放，又通过 QMix 监听同一声音，就可能重复。检查原应用输出、硬件直通与 QMix 监听路径，避免同一音源重复回到耳机。",
+        "macOS 14.2 及以上的系统音源接管发往 QMix 的声音：系统输出选择 QMix 时，由软件路由控制；选择其他输出设备时可直接播放。其他应用采集方式可能保留原播放。请检查系统输出、硬件直通与 QMix 监听路径，避免同一音源重复回到耳机。",
+        1,
+    )
     if OUT.exists():
         shutil.rmtree(OUT)
     (OUT / "assets").mkdir(parents=True)
