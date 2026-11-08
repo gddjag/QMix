@@ -34,7 +34,7 @@ python3 -m http.server 8877 --bind 127.0.0.1 --directory QMixWeb/dist
 
 ## GitHub 与 R2 下载线路
 
-官网按架构展示 `下载`（R2 主力线路）和 `GitHub 下载`（备用线路）。Windows 1.0.5（x64 / ARM64）和 macOS 1.0.5（arm64 / x86_64）均提供 R2 与 GitHub 两条下载线路。
+官网按架构展示 `下载`（R2 主力线路）和 `GitHub 下载`（备用线路）。Windows 1.0.6（x64 / ARM64）和 macOS 1.0.5（arm64 / x86_64）均提供 R2 与 GitHub 两条下载线路。
 
 每次发布新版本后，必须把每个已发布架构的 R2 与 GitHub 直链、版本号和 SHA-256 同步到 `downloads.json`，运行 `python3 build.py` 检查构建结果，并确认对应下载链接可匿名访问。Cloudflare Pages 会在 `main` 更新后自动部署。已下架的 Windows 架构保持 URL 为 `null` 且 `release.windows.available` 为 `false`；Windows 下载卡片仍展示，按钮渲染为禁用状态且不得生成链接，只有用户明确要求恢复发布后才重新开放。不得把测试包、软件源码或不匹配版本的校验值放入官网。
 
