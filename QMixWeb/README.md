@@ -4,8 +4,8 @@
 
 - 正式域名：`https://qmix.top/`
 - 联系作者：`djag@qq.com`
-- `index.html` 是可独立打开的原始单页，保留真实软件截图、3D 卡片与操作演示。
-- 上线构建会把内嵌图片原样拆出，生成更小的 HTML；不会压缩、重画或修改截图和二维码。
+- `index.html` 是可独立打开的原始单页，内嵌中英文页面、真实软件截图和带章节的桌面操作录像。
+- 上线构建会把内嵌图片和视频原样拆出，生成更小的 HTML；不会压缩、重画或修改截图和二维码。
 
 ## 本地构建和预览
 
@@ -34,7 +34,7 @@ python3 -m http.server 8877 --bind 127.0.0.1 --directory QMixWeb/dist
 
 ## GitHub 与 R2 下载线路
 
-官网按架构展示 `下载`（R2 主力线路）和 `GitHub 下载`（备用线路）。Windows 1.0.6（x64 / ARM64）和 macOS 1.0.5（arm64 / x86_64）均提供 R2 与 GitHub 两条下载线路。
+官网按架构展示 `下载`（R2 主力线路）和 `GitHub 下载`（备用线路）。版本及校验值从 `downloads.json` 读取，Windows（x64 / ARM64）和 macOS（arm64 / x86_64）均提供 R2 与 GitHub 两条下载线路。
 
 每次发布新版本后，必须把每个已发布架构的 R2 与 GitHub 直链、版本号和 SHA-256 同步到 `downloads.json`，运行 `python3 build.py` 检查构建结果，并确认对应下载链接可匿名访问。Cloudflare Pages 会在 `main` 更新后自动部署。已下架的 Windows 架构保持 URL 为 `null` 且 `release.windows.available` 为 `false`；Windows 下载卡片仍展示，按钮渲染为禁用状态且不得生成链接，只有用户明确要求恢复发布后才重新开放。不得把测试包、软件源码或不匹配版本的校验值放入官网。
 
