@@ -1,12 +1,12 @@
 {
   "windows": {
     "x64": {
-      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.6/QMix-Windows-x64-1.0.6-20261110-045235.exe",
-      "r2": "https://downloads.qmix.top/QMix-Windows-x64-1.0.6-20261110-045235.exe"
+      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.7/QMix-Windows-x64-1.0.7.exe",
+      "r2": "https://downloads.qmix.top/QMix-Windows-x64-1.0.7.exe"
     },
     "arm64": {
-      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.6/QMix-Windows-arm64-1.0.6-20261110-045235.exe",
-      "r2": "https://downloads.qmix.top/QMix-Windows-arm64-1.0.6-20261110-045235.exe"
+      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.7/QMix-Windows-arm64-1.0.7.exe",
+      "r2": "https://downloads.qmix.top/QMix-Windows-arm64-1.0.7.exe"
     }
   },
   "macos": {
@@ -30,13 +30,13 @@
       }
     },
     "windows": {
-      "version": "1.0.6",
+      "version": "1.0.7",
       "available": true,
       "x64": {
-        "sha256": "e4f6cf9a16993e00a823e89f1bc63cd8c56858dd739372732a49012874cb0e33"
+        "sha256": "68a488346671015f8ce139f387e860e00058a41b300dd29b76292acff5d72899"
       },
       "arm64": {
-        "sha256": "782a13d494bc8475c3846afc26f958a6a01b1756d20cd99f3cf2db9eb77d8c2a"
+        "sha256": "b4c9c99c676bfe6ea7efc63726fce7ed342915ed581cb54aeb87d2de7c4f22a5"
       }
     }
   }
