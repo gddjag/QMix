@@ -11,22 +11,22 @@
   },
   "macos": {
     "arm64": {
-      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.7/QMix-macOS-arm64-1.0.7.pkg",
-      "r2": "https://downloads.qmix.top/QMix-macOS-arm64-1.0.7.pkg"
+      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.8/QMix-macOS-arm64-1.0.8.pkg",
+      "r2": "https://downloads.qmix.top/QMix-macOS-arm64-1.0.8.pkg"
     },
     "x86_64": {
-      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.7/QMix-macOS-x86_64-1.0.7.pkg",
-      "r2": "https://downloads.qmix.top/QMix-macOS-x86_64-1.0.7.pkg"
+      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.8/QMix-macOS-x86_64-1.0.8.pkg",
+      "r2": "https://downloads.qmix.top/QMix-macOS-x86_64-1.0.8.pkg"
     }
   },
   "release": {
     "macos": {
-      "version": "1.0.7",
+      "version": "1.0.8",
       "arm64": {
-        "sha256": "2b7e1b642d8568b28ff6fba534b77357bf4fa52b66a8685394f9c616906bacfe"
+        "sha256": "35f591bf9296b5d7b3ec1e7f6bd3054935b10967565fe55070be5fe213110b90"
       },
       "x86_64": {
-        "sha256": "3c913988bc279a868c8284479101a48fc91e772a1e7e70a964508398eca711f4"
+        "sha256": "2eecf19c63f9a61de55f1422b6d73763b1f2e31fb5bf3321535ba307049dcade"
       }
     },
     "windows": {
