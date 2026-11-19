@@ -88,7 +88,13 @@ def card(manifest, platform, name, minimum, minimum_en, architectures, extension
         checksum_body = "".join(checksum) + label(*checksum_help[:2], tag="p") + f'<code class="qd-cmd">{escape(checksum_help[2])}</code>'
     else:
         checksum_body = label("安装包发布时会提供校验值。", "Checksums will be available when the installers are released.", "p")
-    return (f'<article class="qd-card" aria-labelledby="download-{platform}-title"><header class="qd-card-head"><h3 id="download-{platform}-title">{name}</h3>'
+    icon_path = (
+        '<path d="M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM13 13h8v8h-8z"/>'
+        if platform == "windows" else
+        '<path d="M17.05 12.54c.03 3.2 2.8 4.26 2.83 4.27-.02.08-.44 1.52-1.46 3.01-.88 1.29-1.8 2.58-3.24 2.61-1.41.03-1.87-.84-3.48-.84-1.61 0-2.11.81-3.45.87-1.39.05-2.45-1.4-3.34-2.68-1.81-2.62-3.19-7.4-1.33-10.63.92-1.6 2.57-2.61 4.36-2.64 1.36-.03 2.65.92 3.48.92.84 0 2.4-1.14 4.05-.98.69.03 2.62.28 3.86 2.1-.1.06-2.31 1.35-2.28 3.99zM14.41 4.7c.74-.89 1.24-2.13 1.1-3.37-1.07.04-2.36.72-3.13 1.61-.69.79-1.3 2.05-1.14 3.26 1.2.09 2.43-.61 3.17-1.5z"/>'
+    )
+    icon = f'<svg class="qd-platform-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">{icon_path}</svg>'
+    return (f'<article class="qd-card" aria-labelledby="download-{platform}-title"><header class="qd-card-head"><h3 id="download-{platform}-title">{icon}<span>{name}</span></h3>'
             f'<span class="qd-meta">{meta}</span></header>{label(minimum,minimum_en,"p","qd-minimum")}'
             f'{"".join(rows)}<div class="qd-safety"><i aria-hidden="true">i</i>{label(*safety)}</div>'
             f'{notice(platform)}<details class="qd-detail"><summary>{label("查看 SHA-256 校验值","View SHA-256 checksums")}</summary>'
