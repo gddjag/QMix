@@ -21,23 +21,23 @@
     },
     "windows": {
       "arm64": {
-        "sha256": "7bcc3236a30ebaa987a4bb21b96dbcd13566c14f2cb682b46749bdbc08de707a"
+        "sha256": "07410531afc7221de750d0547bf246113f246d984426a9095d7d7d88bdb6dd8d"
       },
       "available": true,
-      "version": "1.0.8",
+      "version": "1.0.9",
       "x64": {
-        "sha256": "c06ffaa6ca32f95d0309ac8dd080b4fbeff28c09c0e6806baafe82e4c787db9b"
+        "sha256": "c9f95a1f1e76812d3b3c198dc39545f1217aa47e77e670bd73eb5e09edbd8eee"
       }
     }
   },
   "windows": {
     "arm64": {
-      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.8/QMix-Windows-arm64-1.0.8.exe",
-      "r2": "https://downloads.qmix.top/QMix-Windows-arm64-1.0.8.exe"
+      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.9/QMix-Windows-arm64-1.0.9.exe",
+      "r2": "https://downloads.qmix.top/QMix-Windows-arm64-1.0.9.exe"
     },
     "x64": {
-      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.8/QMix-Windows-x64-1.0.8.exe",
-      "r2": "https://downloads.qmix.top/QMix-Windows-x64-1.0.8.exe"
+      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.9/QMix-Windows-x64-1.0.9.exe",
+      "r2": "https://downloads.qmix.top/QMix-Windows-x64-1.0.9.exe"
     }
   }
 }
