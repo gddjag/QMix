@@ -64,13 +64,19 @@ def card(manifest, platform, name, minimum, minimum_en, architectures, extension
         if active and not re.fullmatch(r'[0-9a-f]{64}', checksum_value or ''):
             raise ValueError(f"Missing or invalid checksum for {platform}/{arch}")
         links = []
+        primary = 'r2' if urls.get('r2') else 'github'
         for key, zh_label, en_label in [('r2','下载','Download'),('github','GitHub 下载','GitHub mirror')]:
-            attrs = f' class="qd-btn qd-{key}" data-platform="{platform}" data-architecture="{arch}" data-download-source="{key}"'
+            if active and not urls.get(key):
+                continue
+            style = 'r2' if active and key == primary else key
+            if active and key == primary:
+                zh_label, en_label = '下载', 'Download'
+            attrs = f' class="qd-btn qd-{style}" data-platform="{platform}" data-architecture="{arch}" data-download-source="{key}"'
             if available and urls.get(key):
                 parsed = urlsplit(urls[key])
                 if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
                     raise ValueError(f"Invalid download URL for {platform}/{arch}/{key}")
-                links.append(f'<a{attrs} href="{escape(urls[key], quote=True)}">{label(zh_label,en_label)} <span aria-hidden="true">{"↓" if key=="r2" else "↗"}</span></a>')
+                links.append(f'<a{attrs} href="{escape(urls[key], quote=True)}">{label(zh_label,en_label)} <span aria-hidden="true">{"↓" if key==primary else "↗"}</span></a>')
             else:
                 links.append(f'<button type="button"{attrs} disabled>{label(zh_label,en_label)} {label("暂未开放","Unavailable","small")}</button>')
         rows.append(f'<div class="qd-arch"><h4>{label(zh,en)}</h4><div class="qd-actions">{"".join(links)}</div></div>')
