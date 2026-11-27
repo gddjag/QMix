@@ -1,44 +1,44 @@
 {
   "macos": {
     "arm64": {
-      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.10/QMix-macOS-arm64-1.0.10.pkg",
-      "r2": "https://downloads.qmix.top/QMix-macOS-arm64-1.0.10.pkg"
+      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.11/QMix-macOS-arm64-1.0.11.pkg",
+      "r2": "https://downloads.qmix.top/QMix-macOS-arm64-1.0.11.pkg"
     },
     "x86_64": {
-      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.10/QMix-macOS-x86_64-1.0.10.pkg",
-      "r2": "https://downloads.qmix.top/QMix-macOS-x86_64-1.0.10.pkg"
+      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.11/QMix-macOS-x86_64-1.0.11.pkg",
+      "r2": "https://downloads.qmix.top/QMix-macOS-x86_64-1.0.11.pkg"
     }
   },
   "release": {
     "macos": {
       "arm64": {
-        "sha256": "787b304c7b303758bc428f89accc2d83052ed9734fc5db013f9ff94c42581907"
+        "sha256": "d250112fe417b04ed15d187fa67180aa7530d7335a387a7bca72882d9df67b2d"
       },
-      "version": "1.0.10",
+      "version": "1.0.11",
       "x86_64": {
-        "sha256": "a1f4120cc42507fe7bbd67d3d6948f52162100319e3ef26a52ea0a15f1473585"
+        "sha256": "69334806448cba5dcfc22e368da3d8808a6a416b92e143c7dfb10435a3fa1cfd"
       },
       "available": true
     },
     "windows": {
       "arm64": {
-        "sha256": "52425491f341d1b5ee706940841bd0a8a86e1b2937e64665de75a57ee37b314e"
+        "sha256": "34843e6b571fea92648a75c4c7ac08dc71ee179308e751c40aeb3e3a8c38a1d1"
       },
       "available": true,
-      "version": "1.0.10",
+      "version": "1.0.11",
       "x64": {
-        "sha256": "d2a413e05bed7d6ee18c9fffc1bb72a168f02e1f5d7cbf2577eca121dc5284e7"
+        "sha256": "35922e23227869090c66c414de3d768330e72f3866fa2d5e2d04aab9decedc46"
       }
     }
   },
   "windows": {
     "arm64": {
-      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.10/QMix-Windows-arm64-1.0.10.exe",
-      "r2": "https://downloads.qmix.top/QMix-Windows-arm64-1.0.10.exe"
+      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.11/QMix-Windows-arm64-1.0.11.exe",
+      "r2": "https://downloads.qmix.top/QMix-Windows-arm64-1.0.11.exe"
     },
     "x64": {
-      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.10/QMix-Windows-x64-1.0.10.exe",
-      "r2": "https://downloads.qmix.top/QMix-Windows-x64-1.0.10.exe"
+      "github": "https://github.com/gddjag/QMix/releases/download/v1.0.11/QMix-Windows-x64-1.0.11.exe",
+      "r2": "https://downloads.qmix.top/QMix-Windows-x64-1.0.11.exe"
     }
   }
 }
